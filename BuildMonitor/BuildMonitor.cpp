@@ -122,8 +122,16 @@ void BuildMonitor::changeEvent(QEvent * event)
 			hide();
 		}
 	}
-}
 #endif
+
+void BuildMonitor::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape)
+    {
+        toggleVisibility();
+        event->accept();
+    }
+}
 
 void BuildMonitor::showEvent(QShowEvent* event)
 {
@@ -331,14 +339,7 @@ void BuildMonitor::onTrayActivated(QSystemTrayIcon::ActivationReason reason)
 {
 	if (reason != QSystemTrayIcon::Context)
 	{
-		if (isHidden() || isMinimized())
-		{
-			showWindow();
-		}
-		else
-		{
-			hide();
-		}
+		toggleVisibility();
 	}
 }
 
@@ -540,5 +541,17 @@ void BuildMonitor::onViewBuildLog(const QString& projectName)
 	if (pos != lastProjectInformation.end() && pos->buildNumber != 0)
 	{
 		QDesktopServices::openUrl(pos->projectUrl.toString() + QString::number(pos->buildNumber) + "/consoleText");
+	}
+}
+
+void BuildMonitor::toggleVisibility()
+{
+	if (isHidden() || isMinimized())
+	{
+		showWindow();
+	}
+	else
+	{
+		hide();
 	}
 }
