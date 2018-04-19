@@ -38,6 +38,7 @@ public:
 #if 0
 	virtual void changeEvent(QEvent* event) override;
 #endif
+	virtual void keyPressEvent(QKeyEvent *event) override;
 	virtual void showEvent(QShowEvent* event) override;
 	virtual void closeEvent(QCloseEvent* event) override;
 	virtual void moveEvent(QMoveEvent* moveEvent) override;
@@ -63,6 +64,7 @@ private:
 	void onTableRowDoubleClicked(const class QModelIndex& index);
 	void onVolunteerToFix(const QString& projectName);
 	void onViewBuildLog(const QString& projectName);
+	void toggleVisibility();
 
 	Ui::BuildMonitorClass ui;
 	QIcon noInformationIcon;
